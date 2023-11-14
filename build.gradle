@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id "io.freefair.aspectj.post-compile-weaving" version "8.4"
+    id "io.freefair.lombok" version "6.5.0-rc1"
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    aspectjVersion = '1.9.19'
+    junitVersion = '5.9.2'
+    mapstructVersion = "1.6.0.Beta1"
+    lombokVersion = "1.18.30"
+    lombokMapstructBindingVersion = "0.2.0"
+}
+
+dependencies {
+    implementation 'org.postgresql:postgresql:42.6.0'
+    testImplementation 'org.liquibase:liquibase-core:4.23.1'
+
+    implementation 'org.yaml:snakeyaml:2.1'
+
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    implementation "org.projectlombok:lombok:${lombokVersion}"
+
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
+
+    testAnnotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
+
+    implementation("org.aspectj:aspectjrt:${aspectjVersion}")
+    implementation("org.aspectj:aspectjweaver:${aspectjVersion}")
+    implementation("org.aspectj:aspectjtools:${aspectjVersion}")
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+}
+
+test {
+    useJUnitPlatform()
+}
