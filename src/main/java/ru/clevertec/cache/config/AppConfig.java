@@ -5,7 +5,7 @@ import org.postgresql.ds.PGSimpleDataSource;
 import ru.clevertec.cache.repository.UserRepository;
 import ru.clevertec.cache.service.UserService;
 import ru.clevertec.cache.service.impl.UserServiceImpl;
-import ru.clevertec.cache.util.YMLParser;
+import ru.clevertec.cache.util.yml.YMLParser;
 
 import javax.sql.DataSource;
 

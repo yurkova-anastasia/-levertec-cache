@@ -1,4 +1,4 @@
-package ru.clevertec.cache.util;
+package ru.clevertec.cache.util.yml;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
