@@ -1,4 +1,4 @@
-package ru.clevertec.cache.util.impl;
+package ru.clevertec.cache.util.pdf.impl;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -14,11 +14,14 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
 import ru.clevertec.cache.dto.UserResponseDto;
 import ru.clevertec.cache.exception.PdfPrinterException;
-import ru.clevertec.cache.util.pdf.Printer;
+import ru.clevertec.cache.util.pdf.UserPdfPrinter;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -27,27 +30,22 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class UserPdfPrinter implements Printer {
+public class UserPdfPrinterImpl implements UserPdfPrinter {
 
     private static Long userPdfCounter = 1L;
     private static final String ROOT_PATH = System.getProperty("user.dir");
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
     public static final Font RED_BOLD = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.RED);
 
-
     @Override
     public void print(UserResponseDto userResponseDto) {
         try {
             Document document = new Document();
-            String path = new StringBuilder()
-                    .append(ROOT_PATH)
-                    .append("\\userPdf")
-                    .append("\\UserPDF")
-                    .append(userPdfCounter)
-                    .append(".pdf")
-                    .toString();
+
+            Path filePath = Paths.get(ROOT_PATH, "pdf", "userPdf", "UserPDF" + userPdfCounter + ".pdf");
+            Files.createDirectories(filePath.getParent());
             PdfWriter writer =
-                    PdfWriter.getInstance(document, new FileOutputStream(path));
+                    PdfWriter.getInstance(document, new FileOutputStream(String.valueOf(filePath)));
 
             document.open();
             setBackground(writer);
@@ -72,7 +70,7 @@ public class UserPdfPrinter implements Printer {
     }
 
     private void setBackground(PdfWriter writer) throws IOException {
-        PdfReader reader = new PdfReader("Clevertec_Template.pdf");
+        PdfReader reader = new PdfReader("pdf/Clevertec_Template.pdf");
         PdfImportedPage page = writer.getImportedPage(reader, 1);
         PdfContentByte directContent = writer.getDirectContent();
         directContent.addTemplate(page, 0, 0);
