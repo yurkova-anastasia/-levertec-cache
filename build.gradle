@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'war'
     id "io.freefair.aspectj.post-compile-weaving" version "8.4"
     id "io.freefair.lombok" version "6.5.0-rc1"
 }
@@ -17,6 +18,11 @@ ext {
 }
 
 dependencies {
+    implementation 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2'
+
+    implementation 'org.liquibase:liquibase-core:4.25.0'
     implementation 'org.postgresql:postgresql:42.6.0'
 
     implementation 'org.yaml:snakeyaml:2.1'
@@ -33,7 +39,6 @@ dependencies {
     implementation("org.aspectj:aspectjweaver:${aspectjVersion}")
     implementation("org.aspectj:aspectjtools:${aspectjVersion}")
 
-    testImplementation 'org.liquibase:liquibase-core:4.23.1'
     testAnnotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")

@@ -12,9 +12,9 @@ services:
       timeout: 5s
       retries: 20
 
-  liquibase-banking:
+  liquibase-users:
     image: liquibase/liquibase:4.17.2
-    container_name: liquibase-cache
+    container_name: liquibase-servlet
     depends_on:
       postgres:
         condition: service_healthy

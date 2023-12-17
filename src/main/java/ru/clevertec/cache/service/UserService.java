@@ -16,7 +16,7 @@ public interface UserService {
 
     UserResponseDto findById(Long id);
 
-    List<UserResponseDto> findAll();
+    List<UserResponseDto> findAll(int limit, int offset);
 
     UserResponseDto save(UserRequestDto user);
 

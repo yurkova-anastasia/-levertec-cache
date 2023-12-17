@@ -51,7 +51,6 @@ public class CacheAspect {
             Object returnObject = proceedingJoinPoint.proceed();
             try {
                 cache.put(findObjectId(returnObject), returnObject);
-                System.out.println("cache was called");
             } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
@@ -90,7 +89,6 @@ public class CacheAspect {
                 returnObject.forEach(object -> {
                     try {
                         cache.put(findObjectId(object), object);
-                        System.out.println("cache was called");
                     } catch (IllegalAccessException e) {
                         throw new RuntimeException(e);
                     }
@@ -111,7 +109,6 @@ public class CacheAspect {
             Boolean returnValue = (Boolean) proceedingJoinPoint.proceed();
             if (returnValue) {
                 cache.put(findObjectId(object), object);
-                System.out.println("cache was called");
             }
         }
 
@@ -126,7 +123,6 @@ public class CacheAspect {
             Boolean returnValue = (Boolean) proceedingJoinPoint.proceed();
             if (returnValue) {
                 cache.delete(findObjectId(object));
-                System.out.println("cache was called");
             }
         }
 

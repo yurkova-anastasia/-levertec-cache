@@ -1,10 +1,14 @@
 package ru.clevertec.cache.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.experimental.UtilityClass;
 import org.postgresql.ds.PGSimpleDataSource;
 import ru.clevertec.cache.repository.UserRepository;
 import ru.clevertec.cache.service.UserService;
 import ru.clevertec.cache.service.impl.UserServiceImpl;
+import ru.clevertec.cache.util.pdf.UserPdfPrinter;
+import ru.clevertec.cache.util.pdf.impl.UserPdfPrinterImpl;
 import ru.clevertec.cache.util.yml.YMLParser;
 
 import javax.sql.DataSource;
@@ -24,6 +28,8 @@ public class AppConfig {
     private static final DataSource dataSource;
     private static final UserRepository userRepository;
     private static final UserService userService;
+    private static final ObjectMapper objectMapper;
+    private static final UserPdfPrinter userPdfPrinter;
 
     static {
         yamlParser = new YMLParser();
@@ -37,6 +43,12 @@ public class AppConfig {
         userRepository = new UserRepository(dataSource);
 
         userService = new UserServiceImpl(userRepository);
+
+        objectMapper = new ObjectMapper()
+                .registerModule(new JavaTimeModule());
+
+        userPdfPrinter = new UserPdfPrinterImpl();
+
     }
 
     public static YMLParser getYamlParser() {
@@ -55,4 +67,7 @@ public class AppConfig {
         return userService;
     }
 
+    public static ObjectMapper getObjectMapper() {return objectMapper;}
+
+    public static UserPdfPrinter getUserPdfPrinter() {return userPdfPrinter;}
 }

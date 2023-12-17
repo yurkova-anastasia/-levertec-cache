@@ -1,5 +1,6 @@
 package ru.clevertec.cache.repository;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.clevertec.cache.annotation.CustomCacheable;
 import ru.clevertec.cache.exception.RepositoryException;
 import ru.clevertec.cache.model.User;
@@ -23,17 +24,18 @@ import java.util.Optional;
  */
 public class UserRepository {
 
+
     private static final String SELECT_BY_ID_QUERY = "SELECT * FROM users WHERE active = TRUE AND id = ?";
 
-    private static final String SELECT_ALL_QUERY = "SELECT * FROM users WHERE active = TRUE";
+    private static final String SELECT_ALL_QUERY = "SELECT * FROM users WHERE active = TRUE LIMIT ? OFFSET ?";
 
     private static final String INSERT_QUERY = """
-        INSERT INTO users (name, surname, age, birthdate, active) VALUES (?, ?, ?,  ?, ?)
-    """;
+                INSERT INTO users (name, surname, age, birthdate, active) VALUES (?, ?, ?,  ?, ?)
+            """;
 
     private static final String UPDATE_QUERY = """
-        UPDATE users SET name = ?, surname = ?, age = ?, birthdate = ?, active = ? WHERE id = ?
-    """;
+                UPDATE users SET name = ?, surname = ?, age = ?, birthdate = ?, active = ? WHERE id = ?
+            """;
 
     private static final String DELETE_QUERY = "UPDATE users SET active = FALSE WHERE id = ?";
 
@@ -88,7 +90,6 @@ public class UserRepository {
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID_QUERY)
         ) {
             preparedStatement.setLong(1, id);
-            System.out.println("repository was called");
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 return resultSet.next() ? Optional.of(construct(resultSet)) : Optional.empty();
             }
@@ -105,10 +106,12 @@ public class UserRepository {
      * @author Yurkova Anastacia
      */
     @CustomCacheable
-    public List<User> findAll() throws RepositoryException {
+    public List<User> findAll(int limit, int offset) throws RepositoryException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_QUERY)
         ) {
+            preparedStatement.setInt(1, limit);
+            preparedStatement.setInt(2, offset);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 List<User> found = new ArrayList<>();
                 while (resultSet.next()) {
@@ -191,7 +194,7 @@ public class UserRepository {
         preparedStatement.setString(2, element.getSurname());
         preparedStatement.setInt(3, element.getAge());
         preparedStatement.setDate(4, Date.valueOf(element.getBirthdate()));
-        preparedStatement.setBoolean(54, true);
+        preparedStatement.setBoolean(5, true);
     }
 
 }

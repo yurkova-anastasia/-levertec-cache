@@ -18,6 +18,7 @@ import java.util.List;
  */
 public class UserServiceImpl implements UserService {
 
+
     private final UserRepository userRepository;
     private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
@@ -45,8 +46,8 @@ public class UserServiceImpl implements UserService {
      * @return A list of UserResponseDto representing users.
      */
     @Override
-    public List<UserResponseDto> findAll() {
-        return userMapper.toListOfDto(userRepository.findAll());
+    public List<UserResponseDto> findAll(int limit, int offset) {
+        return userMapper.toListOfDto(userRepository.findAll(limit, offset));
     }
 
     /**
