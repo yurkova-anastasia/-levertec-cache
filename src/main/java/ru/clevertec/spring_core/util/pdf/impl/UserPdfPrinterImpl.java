@@ -12,6 +12,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
+import org.springframework.stereotype.Component;
 import ru.clevertec.spring_core.dto.UserResponseDto;
 import ru.clevertec.spring_core.exception.PdfPrinterException;
 import ru.clevertec.spring_core.util.pdf.UserPdfPrinter;
@@ -30,6 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
+@Component
 public class UserPdfPrinterImpl implements UserPdfPrinter {
 
     private static Long userPdfCounter = 1L;

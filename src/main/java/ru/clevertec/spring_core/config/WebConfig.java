@@ -6,17 +6,16 @@ import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import ru.clevertec.spring_core.repository.UserRepository;
-import ru.clevertec.spring_core.service.UserService;
-import ru.clevertec.spring_core.service.impl.UserServiceImpl;
-import ru.clevertec.spring_core.servlets.UserServlet;
 import ru.clevertec.spring_core.util.yml.YMLParser;
 
 import javax.sql.DataSource;
 
+@EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = {"ru.clevertec.spring_core"})
-public class SpringConfig {
+public class WebConfig {
 
     @Bean
     public YMLParser ymlParser() {
@@ -27,6 +26,7 @@ public class SpringConfig {
     public ObjectMapper objectMapper() {
         return new ObjectMapper().registerModule(new JavaTimeModule());
     }
+
     @Bean
     public DataSource dataSource() {
         PGSimpleDataSource pgSimpleDataSource = new PGSimpleDataSource();
@@ -34,16 +34,6 @@ public class SpringConfig {
         pgSimpleDataSource.setUser(ymlParser().getYaml().getPostgres().getUser());
         pgSimpleDataSource.setPassword(ymlParser().getYaml().getPostgres().getPassword());
         return pgSimpleDataSource;
-    }
-
-    @Bean
-    public UserServlet userServlet() {
-        return new UserServlet();
-    }
-
-    @Bean
-    public UserService userService() {
-        return new UserServiceImpl();
     }
 
     @Bean
