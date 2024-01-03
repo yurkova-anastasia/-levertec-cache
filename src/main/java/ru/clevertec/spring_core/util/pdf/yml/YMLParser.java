@@ -1,8 +1,7 @@
-package ru.clevertec.spring_core.util.yml;
+package ru.clevertec.spring_core.util.pdf.yml;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
-import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -25,5 +24,4 @@ public class YMLParser {
             inputStream.close();
         }
     }
-
 }

@@ -18,7 +18,6 @@ import java.util.List;
  * @see UserResponseDto
  */
 @Mapper(componentModel = "spring")
-@Component
 public interface UserMapper {
 
     UserResponseDto toDto(User user);

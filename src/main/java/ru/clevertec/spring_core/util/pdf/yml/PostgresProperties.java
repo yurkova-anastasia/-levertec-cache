@@ -1,4 +1,4 @@
-package ru.clevertec.spring_core.util.yml;
+package ru.clevertec.spring_core.util.pdf.yml;
 
 import lombok.Data;
 
@@ -9,5 +9,4 @@ public class PostgresProperties {
     private String url;
     private String user;
     private String password;
-
 }

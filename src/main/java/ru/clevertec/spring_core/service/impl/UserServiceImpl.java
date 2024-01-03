@@ -1,7 +1,9 @@
 package ru.clevertec.spring_core.service.impl;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.clevertec.spring_core.dto.UserRequestDto;
 import ru.clevertec.spring_core.dto.UserResponseDto;
 import ru.clevertec.spring_core.exception.EntityNotFoundException;
@@ -17,21 +19,12 @@ import java.util.List;
  *
  * @author Yurkova Anastacia
  */
-@Component
+@AllArgsConstructor
+@Service
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     private UserMapper userMapper;
-
-    @Autowired
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    @Autowired
-    public void setUserMapper(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
 
     /**
      * Finds a user by their unique identifier (ID).

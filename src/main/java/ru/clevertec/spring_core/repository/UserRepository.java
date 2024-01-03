@@ -1,5 +1,7 @@
 package ru.clevertec.spring_core.repository;
 
+import org.springframework.stereotype.Repository;
+import ru.clevertec.spring_core.connection.DataSourceProvider;
 import ru.clevertec.spring_core.exception.RepositoryException;
 import ru.clevertec.spring_core.model.User;
 
@@ -20,6 +22,7 @@ import java.util.Optional;
  * @author Yurkova Anastacia
  * @see User
  */
+@Repository
 public class UserRepository {
 
     private static final String SELECT_BY_ID_QUERY = "SELECT * FROM users WHERE active = TRUE AND id = ?";
@@ -36,10 +39,10 @@ public class UserRepository {
 
     private static final String DELETE_QUERY = "UPDATE users SET active = FALSE WHERE id = ?";
 
-    private final DataSource dataSource;
+    private DataSource dataSource;
 
-    public UserRepository(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public UserRepository() {
+        this.dataSource = DataSourceProvider.getDataSource();
     }
 
     /**
