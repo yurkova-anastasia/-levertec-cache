@@ -1,24 +1,75 @@
-# Cache Implementation
+# ClevertecTask
 
-## Overview
+## Description
 
-This project aims to implement a caching system utilizing Least Recently Used (LRU)
-and Least Frequently Used (LFU) algorithms. The application is structured with service 
-and DAO layers, where the service layer invokes the DAO layer for CRUD operations on entities.
-The data synchronization between DAO
-and cache is facilitated through a proxy, custom annotation, using AspectJ.
+Основные сущности:
 
-## Features
+- User
 
-- **Caching Algorithms:** LRU and LFU algorithms are implemented to efficiently manage the cache.
-- **Service and DAO Layers:** The application is organized with service and DAO layers, following the principles of separation of concerns. The service layer interacts with DTOs, and the DAO layer provides a data source.
-- **CRUD Operations:** The service layer supports Create, Read, Update, and Delete (CRUD) operations for working with entities.
-- **Configuration via YAML:** Algorithm preferences and the maximum size of the collection are configurable via the `application.yml` file.
-- **DTO Validation:** DTOs passed to the service layer are validated, including the addition of regex validation for specific fields.
+## Configuration
 
-## How to Run
+[Configuration](src/main/resources/application.yml)
 
-1. Clone the repository: `git clone https://github.com/yurkova-anastasia/clevertec-reflection.git`
-2. Open the project in your preferred Java IDE.
-3. Set the configurations in `application.yml` according to your preferences.
-4. Run the application.
+### Build tool
+
+This project uses such build tool as gradle.<br/>
+Use "./gradle build" to build project.
+
+
+### Manual
+
+To start the project you need:
+
+- Have postgresql, pgAdmin
+- Create empty database in pgAdmin
+- in application.yml set the necessary data to connect to the database:
+  url, username, password.
+- data in the database is filled in automatically when starting the project
+
+## REST-services:
+
+### GET http://localhost:8081/users?id={id}
+
+##### getting bank on id
+
+        where:
+        {id} - user id
+
+### PUT http://localhost:8081/users/
+
+##### update user
+
+         Example of request body:
+         {
+            "name": "John",
+            "surname": "Doe",
+            "age": 25,
+            "birthdate": "1998-01-01"
+         }
+
+### POST http://localhost:8081/users?id={id}
+
+##### create user
+
+         Example of request body:
+         {
+            "id": 5,
+            "name": "John",
+            "surname": "Doe",
+            "age": 25,
+            "birthdate": "1998-01-01"
+         }
+
+### DELETE http://localhost:8081/users?id={id}
+
+##### delete user
+
+         where:
+         {id} - user id
+
+### GET http://localhost:8081/check/user?id={id}
+
+##### print user info to PDF
+
+         where:
+         {id} - user id
