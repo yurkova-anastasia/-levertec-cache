@@ -6,7 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @ComponentScan("ru.clevertec")
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application.yml")
 public class AppConfig {
 
 }

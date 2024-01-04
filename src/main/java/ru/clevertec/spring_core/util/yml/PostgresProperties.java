@@ -1,4 +1,4 @@
-package ru.clevertec.spring_core.util.pdf.yml;
+package ru.clevertec.spring_core.util.yml;
 
 import lombok.Data;
 

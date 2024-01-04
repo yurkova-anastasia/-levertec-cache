@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.postgresql.ds.PGSimpleDataSource;
-import ru.clevertec.spring_core.util.pdf.yml.YMLParser;
+import ru.clevertec.spring_core.util.yml.YMLParser;
 
 import javax.sql.DataSource;
 
