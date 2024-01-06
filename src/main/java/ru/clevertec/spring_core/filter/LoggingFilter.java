@@ -8,16 +8,17 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @WebFilter(urlPatterns = "/*")
 public class LoggingFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        System.out.println("Request received at: " + System.currentTimeMillis());
+        System.out.println("Request received at: " + LocalDateTime.now());
 
         chain.doFilter(request, response);
 
-        System.out.println("Response sent at: " + System.currentTimeMillis());
+        System.out.println("Response sent at: " + LocalDateTime.now());
     }
 }
