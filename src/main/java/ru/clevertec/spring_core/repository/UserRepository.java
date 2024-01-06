@@ -1,6 +1,7 @@
 package ru.clevertec.spring_core.repository;
 
 import org.springframework.stereotype.Repository;
+import ru.clevertec.spring_core.annotation.CustomCacheable;
 import ru.clevertec.spring_core.connection.DataSourceProvider;
 import ru.clevertec.spring_core.exception.RepositoryException;
 import ru.clevertec.spring_core.model.User;
@@ -53,6 +54,7 @@ public class UserRepository {
      * @throws RepositoryException If there is an error during the repository operation.
      * @author Yurkova Anastacia
      */
+    @CustomCacheable
     public User save(User user) throws RepositoryException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
@@ -83,6 +85,7 @@ public class UserRepository {
      * @throws RepositoryException If there is an error during the repository operation.
      * @author Yurkova Anastacia
      */
+    @CustomCacheable
     public Optional<User> findById(Long id) throws RepositoryException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID_QUERY)
@@ -103,6 +106,7 @@ public class UserRepository {
      * @throws RepositoryException If there is an error during the repository operation.
      * @author Yurkova Anastacia
      */
+    @CustomCacheable
     public List<User> findAll(int limit, int offset) throws RepositoryException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_QUERY)
@@ -129,6 +133,7 @@ public class UserRepository {
      * @throws RepositoryException If there is an error during the repository operation.
      * @author Yurkova Anastacia
      */
+    @CustomCacheable
     public boolean update(User user) throws RepositoryException {
         int idQueryIndex = findIdPosition();
         try (Connection connection = dataSource.getConnection();
@@ -150,6 +155,7 @@ public class UserRepository {
      * @throws RepositoryException If there is an error during the repository operation.
      * @author Yurkova Anastacia
      */
+    @CustomCacheable
     public boolean delete(Long id) throws RepositoryException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY)

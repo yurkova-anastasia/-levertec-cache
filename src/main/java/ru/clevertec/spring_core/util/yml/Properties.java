@@ -6,4 +6,5 @@ import lombok.Data;
 public class Properties {
 
     private PostgresProperties postgres;
+    private CacheProperties cache;
 }
